@@ -118,11 +118,9 @@
         return formatterTime(value, format)
       },
 
-      /********************** 事件区域 **********************/
 
       /**
        * 获取点击事件.
-       * @author 潘溢林
        * @param method 点击事件方法
        * @param index 当前行索引
        * @param row 当前行对象
@@ -140,7 +138,6 @@
 
       /**
        * 是否需要下拉列表.
-       * @author 潘溢林
        * @return boolean
        */
       isDropDown() {
@@ -150,7 +147,6 @@
       /**
        * 表格全选事件.
        * @param data 选中的数据
-       * @author 潘溢林
        * @return boolean
        */
       selectAll(data) {
@@ -159,8 +155,6 @@
 
       /**
        * 表格多选事件.
-       * @param data 选中的数据
-       * @author 潘溢林
        * @return boolean
        */
       selectChange(data) {
@@ -171,7 +165,6 @@
        * 表格复选框选中事件.
        * @param selection 选中的行数据数组
        * @param row 当前选中行
-       * @author 潘溢林
        * @return boolean
        */
       select(selection, row) {
@@ -180,7 +173,6 @@
 
       /**
        * 图片放大.
-       * @author 潘溢林
        */
       openImageShow(image) {
         this.imageShow = image
@@ -188,7 +180,6 @@
 
       /**
        * 关闭图片放大框.
-       * @author 潘溢林
        */
       closeImageShow() {
         this.imageShow = null
