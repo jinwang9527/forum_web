@@ -153,7 +153,15 @@
        */
       successMessageBox(message) {
         return successMessageBox(message)
-      }
+      },
+      /**
+       * 获取图片完整路径
+       * @param image
+       * @returns {*}
+       */
+      getImage(image) {
+        return  process.env.IMAGE_URL + image
+      },
     }
   }
 
