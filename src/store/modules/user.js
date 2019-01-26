@@ -24,7 +24,7 @@ const user={
   actions:{
     //登录
     Login({commit},userInfo){
-      const username=userInfo.userInfo.username.trim()
+      const username=userInfo.username.trim()
       return new Promise((resolve, reject) =>{
         login(username,md5(userInfo.password)).then(response=>{
           const data=response.data

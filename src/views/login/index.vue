@@ -10,7 +10,12 @@
       </el-form-item>
       <el-form-item prop="password">
         <el-input
+          :type="pwdType"
+          v-model="loginForm.password"
+          name="password"
+          auto-complete="on"
           placeholder="请输入密码"
+          @keyup.enter.native="handleLogin" />
           />
       </el-form-item>
       <el-form-item>
@@ -32,10 +37,10 @@ import BaseVue from '../../components/BaseComponents/BaseVue'
 
       return {
         loginForm: {
-          username: '',
-          password: ''
+          username: 'A10000',
+          password: 'a123456.'
         },
-        /*     loginRules: {
+           loginRules: {
           username: [{ required: true, trigger: 'blur', validator: '' }],
           password: [{ required: true, trigger: 'blur', validator: '' }]
         },
@@ -56,32 +61,29 @@ import BaseVue from '../../components/BaseComponents/BaseVue'
         this.$router.push({
           path: '/ForgetPassword'
         })
-      },*/
+      },
 
-            /*this.$refs.loginForm.validate(valid => {
+      handleLogin(){
+        this.$refs.loginForm.validate(valid => {
           if (valid) {
             this.loading = true
             this.$store.dispatch('Login', this.loginForm).then(() => {
               this.loading = false
-              this.$router.push({ path: this.redirect || '/' })
+              this.$router.push({ path: this.redirect || '/view/first' })
             }).catch(() => {
               this.loading = false
             })
           } else {
             return false
           }
-        })*/
-
-
-      }
-    },
-    methods: {
-      handleLogin() {
-        this.$router.push({
-          path:'/view/first'
         })
       }
-    }
+
+
+
+      }
+
+
   }
 </script>
 
