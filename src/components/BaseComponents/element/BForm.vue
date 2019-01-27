@@ -188,6 +188,7 @@
       preProcessing(model) {
         if (!model) return model
         let tempModel = JSON.parse(JSON.stringify(model))
+        if (item.type === 'password' && (tempModel[item.name]) != null)  tempModel[item.name]= md5((tempModel[item.name]))
         return tempModel
       },
 

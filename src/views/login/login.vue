@@ -1,22 +1,22 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm"  class="login-form" auto-complete="on" label-position="left">
-      <h3 class="title">钱多多 合伙人端</h3>
-      <el-form-item prop="username">
-        <span class="svg-container">
-
-        </span>
-        <el-input v-model="loginForm.username" name="username" type="text" auto-complete="on" placeholder="请输入手机号码或账户" />
+    <el-form ref="loginForm" :model="loginForm"  class="login-form" auto-complete="on" label-position="left" >
+      <h3 class="title">靳旺论坛</h3>
+      <el-form-item prop="username" :rules="[ { required:true,message:'账户不能为空' } ]" >
+        <el-input v-model="loginForm.username" name="username" type="text" auto-complete="on" placeholder="请输入手机号码或账户"  />
       </el-form-item>
-      <el-form-item prop="password">
+      <el-form-item prop="password"  :rules="[
+           { required: true, message: '密码不能为空'},
+          ]">
         <el-input
           :type="pwdType"
           v-model="loginForm.password"
           name="password"
           auto-complete="on"
           placeholder="请输入密码"
+
           @keyup.enter.native="handleLogin" />
-          />
+
       </el-form-item>
       <el-form-item>
         <el-button  type="primary" style="width:100%;" @click= 'handleLogin'>
@@ -24,6 +24,7 @@
         </el-button>
       </el-form-item>
       <el-button style="float: right;" type="text">忘记密码</el-button>
+      <el-button style="float: left;" type="text" @click="goRegister">注册</el-button>
     </el-form>
   </div>
 </template>
@@ -34,15 +35,10 @@ import BaseVue from '../../components/BaseComponents/BaseVue'
     extend:BaseVue,
     name: 'Login',
     data() {
-
       return {
         loginForm: {
           username: 'A10000',
-          password: 'a123456.'
-        },
-           loginRules: {
-          username: [{ required: true, trigger: 'blur', validator: '' }],
-          password: [{ required: true, trigger: 'blur', validator: '' }]
+          password: '123456'
         },
         loading: false,
         pwdType: 'password',
@@ -63,6 +59,11 @@ import BaseVue from '../../components/BaseComponents/BaseVue'
         })
       },
 
+      goRegister(){
+        this.$router.push({
+          path: '/register'
+        })
+      },
       handleLogin(){
         this.$refs.loginForm.validate(valid => {
           if (valid) {

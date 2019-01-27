@@ -12,6 +12,8 @@ import '@/styles/index.scss'
 
 import App from './App'
 
+
+
 Vue.use(ElementUI, { locale })
 Vue.config.productionTip = false
 

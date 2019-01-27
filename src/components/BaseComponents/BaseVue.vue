@@ -1,6 +1,6 @@
 <script>
   import {Obj} from '../../utils/constats'
-  import { errorMessageBox} from '../../utils/message'
+  import { errorMessageBox,messageBox} from '../../utils/message'
   // import { batchSelectDictionary } from './api/index'
   import {mapGetters} from 'vuex'
 

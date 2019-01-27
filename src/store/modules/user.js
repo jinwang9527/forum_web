@@ -1,7 +1,6 @@
 import {getToken,setToken, removeToken} from "../../utils/auth";
 import {md5} from '../../utils/common'
-import {login} from "../../api/login";
-
+import {login,getInfo} from "../../api/user/login"
 
 const user={
   state:{
@@ -32,6 +31,20 @@ const user={
           commit('SET_TOKEN',data)
           resolve()
         }).catch(error=>{
+          reject(error)
+        })
+      })
+    },
+
+    GetInfo({ commit, state }){
+      return new Promise((resolve, reject ) =>{
+        getInfo(state.token).then(response =>{
+          const data =response.data
+          commit('SET_NAME', data.name)
+          commit('SET_USER_INFO', data)
+         /* commit('SET_AVATAR', data.headerImage ? data.headerImage : 'more_money/images/platform/10000/0a14505d-6274-4339-bc19-9812e588a7f7.gif')*/
+          resolve(response)
+        }).catch(error =>{
           reject(error)
         })
       })

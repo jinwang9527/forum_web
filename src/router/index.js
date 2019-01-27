@@ -9,7 +9,8 @@ import test from './test'
 
 export const constantRouterMap = [
   test,
-  { path: '/', component: () => import('@/views/login/index'), hidden: true },
+  { path: '/', component: () => import('@/views/login/login'), hidden: true },
+  { path: '/register', component: () => import('@/views/login/register'), hidden: true },
 ]
 export default new Router({
 
