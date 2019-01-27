@@ -5,10 +5,10 @@ Vue.use(Router)
 
 
 /* Layout */
-import test from './test'
+import personalCenter from './personalCenter'
 
 export const constantRouterMap = [
-  test,
+  personalCenter,
   { path: '/', component: () => import('@/views/login/login'), hidden: true },
   { path: '/register', component: () => import('@/views/login/register'), hidden: true },
 ]

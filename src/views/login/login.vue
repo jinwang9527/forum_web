@@ -70,7 +70,7 @@ import BaseVue from '../../components/BaseComponents/BaseVue'
             this.loading = true
             this.$store.dispatch('Login', this.loginForm).then(() => {
               this.loading = false
-              this.$router.push({ path: this.redirect || '/view/first' })
+              this.$router.push({ path: this.redirect || '/personalCenter/personaLinformation' })
             }).catch(() => {
               this.loading = false
             })
