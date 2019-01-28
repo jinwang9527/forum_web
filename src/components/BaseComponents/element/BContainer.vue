@@ -16,7 +16,8 @@
       </el-button>
     </div>
 
-
+    <!-- 主要内容区域 -->
+    <slot></slot>
   </el-card>
 </template>
 
@@ -24,12 +25,16 @@
   import BaseVue from '../../BaseComponents/BaseVue'
   export default {
     name:'BContainer',
-    extend:BaseVue,
+    extends:BaseVue,
+    created() {
+      this.endLoading()
+    },
     props:{
       title:{
         type:String,
         default:''
       },
+
       isHiddenPre: {                /* 是否隐藏上一页按钮 */
         type: Boolean,
         default: false
@@ -42,6 +47,7 @@
         type: String,
         default: ''
       },
+
       isShowDropDownButton:{
         type: Boolean,
         default: false

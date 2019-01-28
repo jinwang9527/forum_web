@@ -7,14 +7,14 @@
     :pre-page-text="form.prePageText"
     :isHiddenPre="form.isHiddenPre"
     :icon="form.icon"
-  ></b-container>
+  >
 
   <el-form ref="model" :label-width="form.labelWidth || '100px'" :label-position="form.labelPosition || 'right'"
            :model="model">
 
     <el-row :gutter="20">
       <el-col v-for="(item,index ) in form.formItems " :sm="item.sm || 12 " :key="index">
-        <el-form-item :rules="item.rules " :prop="item.name" :label="item.label+':'">
+        <el-form-item :rules="item.rules " :prop="item.name" :label="item.label+'：'">
 
           <!-- 直接进行显示-->
           <span v-if="item.type === 'normal'">{{ model[item.name]}}</span>
@@ -50,21 +50,17 @@
 
           <!-- 图片上传 -->
           <div v-else-if="item.type === 'image'">
+
             <b-image-upload :prop="item.name" @change="uploadSuccess" :disabled="isDisabled(item)"
                             :default-image="model[item.name]"></b-image-upload>
           </div>
-
-          <div v-else-if="item.type='batchImage'">
+          <!--批量上传图片-->
+          <div v-else-if="item.type==='batchImage'">
             <batch-upload-file :prop="item.name" @batchChange="batchUploadSuccess" :disabled="isDisabled(item)"
                                :default-image="model[item.name]"></batch-upload-file>
           </div>
 
 
-          <!--显示图片-->
-          <div v-else-if="item.type === 'normalImage'">
-            <img @click="showImage(model[item.name]) " v-if="model[item.name]" width="150px" height="150px"
-                 :src="getImage(model[item.name])" :alt="getImage(model[item.name])"/>
-          </div>
 
           <!-- 显示多张 -->
           <div v-else-if="item.type=== 'normalImages'">
@@ -93,24 +89,27 @@
                       :disabled="isDisabled(item)"></el-input>
             <span style="color: deepskyblue;" v-if="item.tips"> {{ form.message }} </span>
           </div>
+
+
         </el-form-item>
       </el-col>
     </el-row>
 
+
     <el-row :gutter="20" class="hidden-xs-only">
-      <el-col :sm="12"></el-col>
+      <el-col :sm="12">
       <el-form-item>
-        <div style="margin-bottom: 10px;" v-for="(item, index) in form.operations" :key="index">
-          <el-button v-if="isShow(item.show)" style="width: 100%;" :type="item.type || 'null'" @click="OnClick(item)">
-            {{ item.name }}
-          </el-button>
-        </div>
+        <el-button v-if="isShow(item.show)" v-for="(item, index) in form.operations" :key="index" :type="item.type || 'null'"
+                   @click="OnClick(item)">{{ item.name }}
+        </el-button>
 
       </el-form-item>
-
+      </el-col>
     </el-row>
   </el-form>
 
+
+  </b-container>
 </template>
 
 
@@ -124,7 +123,7 @@
 
   export default {
     name: 'BForm',
-    extend: BaseVue,
+    extends: BaseVue,
     components: {
       BImageUpload,
       BatchUploadFile,
@@ -154,7 +153,10 @@
       this.initValidator()
     },
     mounted() {
-      this.Reset()
+      if (!this.form.model){
+        this.Reset()
+      }
+
     },
     data() {
       return {
@@ -248,7 +250,7 @@
             if (item.required) item.rules.push(rules['required'](item))
 
             /* 2、标准校验器规则 */
-            if (item.validator && rules[item.validator]) item.push(rules[item.validator](item))
+            if (item.validator && rules[item.validator]) item.rules.push(rules[item.validator](item))
 
             /* 3、自定义校验器规则 */
             if (item.validator && typeof item.validator === 'function') item.rules.push(rules['validator'](item))
@@ -286,6 +288,14 @@
       showImage(img) {
         this.selectedImg = img
       },
+      /**
+       * 关闭放大图片.
+       * @author 潘溢林
+       */
+      closeImageShow() {
+        this.selectedImg = null
+      },
+
       /**
        * 上传图片成功
        * @param name
