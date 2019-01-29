@@ -1,6 +1,6 @@
 <template>
   <div >
-    <div class="imageBox">>
+    <div class="imageBox">
       <el-upload
       :headers="getHeaders"
       :before-upload="beforeUpload"
@@ -16,7 +16,7 @@
       :on-success="uploadSuccess"
       :on-remove="handleRemove">
         <i class="el-icon-plus"></i>
-      ></el-upload>
+      </el-upload>
     </div>
     <el-dialog :visible.sync="showDialog">
       <img width="100%" :src="imageUrl" :alt="imageUrl">
