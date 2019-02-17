@@ -17,7 +17,7 @@
         <el-form-item :rules="item.rules " :prop="item.name" :label="item.label+'：'">
 
           <!-- 直接进行显示-->
-          <span v-if="item.type === 'normal'">{{ model[item.name]}}</span>
+          <span v-if="item.type === 'normal'">{{ model[item.name] }}</span>
 
           <!--数值输入框-->
           <el-input-number class="inputClass" v-else-if="item.type === 'number'" v-model="model[item.name]"
@@ -96,7 +96,7 @@
     </el-row>
 
 
-    <el-row :gutter="20" class="hidden-xs-only">
+    <el-row :gutter="20" >
       <el-col :sm="12">
       <el-form-item>
         <el-button v-if="isShow(item.show)" v-for="(item, index) in form.operations" :key="index" :type="item.type || 'null'"
@@ -158,21 +158,27 @@
       }
 
     },
+    computed: {
+      originData: function () {
+        return this.form.model
+      },
+    },
     data() {
       return {
         model: {},
         selectedImg: null,
         isHidden: false,
-
+        showPassword: false
       }
     },
+
 
     methods: {
 
       OnClick(item) {
-        if (item.click) return
+        if (!item.click) return
         if (typeof item.click === 'function') return this.OnClickOrigin(item)
-        if (item.click === 'OnSubmit') this.OnSubmit()
+        if (item.click === "OnSubmit")   this.OnSubmit()
         if (item.click === 'OnSave') this.OnSave()
         if (item.click === 'Reset') this.Reset()
         if (item.click === 'goto ') this.goto(item.path)
@@ -190,7 +196,6 @@
       preProcessing(model) {
         if (!model) return model
         let tempModel = JSON.parse(JSON.stringify(model))
-        if (item.type === 'password' && (tempModel[item.name]) != null)  tempModel[item.name]= md5((tempModel[item.name]))
         return tempModel
       },
 
@@ -198,7 +203,7 @@
       OnSubmit() {
         this.$refs.model.validate((valid) => {
           if (valid) {
-            this.invokeApi(this.form.api, this.preProcessing(this, model)).then(response => {
+            this.invokeApi(this.form.api, this.preProcessing(this.model)).then(response => {
               this.Reset()
               this.messageBox({
                 title: '成功',
@@ -208,7 +213,6 @@
                 this.prev()
               })
             }).catch(error => {
-
             })
           }
         })
@@ -319,7 +323,14 @@
         if (show && typeof show === 'function') return show(this.form.model)
         return show !== false
       },
+    },
+    watch: {
+      originData: function(value) {
+        this.model = JSON.parse(JSON.stringify(value))
+        this.initFormatter()
+      }
     }
+
 
   }
 

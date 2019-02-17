@@ -1,5 +1,6 @@
 import Layout from '../../views/layout/Layout'
 import MyPosts from '../../views/personalCenter/MyPosts'
+import AddPosts from '../../views/personalCenter/posts/AddPosts'
 import MySpace from '../../views/personalCenter/MySpace'
 import personaLinformation from '../../views/personalCenter/personaLinformation'
 export default {
@@ -26,6 +27,13 @@ export default {
       name:'MySpace',
       meta: { title: '我的空间' },
       component:MySpace
+    },
+    {
+      path:'AddPosts',
+      name:'AddPosts',
+      hidden:true,
+      meta: { title: '添加帖子' },
+      component:AddPosts
     }
   ]
 }

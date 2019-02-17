@@ -2,7 +2,7 @@
   <div >
     <div class="imageBox">
       <el-upload
-      :headers="getHeaders"
+      :headers="getHeaders()"
       :before-upload="beforeUpload"
       :show-file-list="true"
       :file-list="imageList"

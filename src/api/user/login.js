@@ -1,5 +1,5 @@
 import request from '@/utils/request'
-import {md5} from '../../utils/common'
+
 
 
 export function login(account,password) {

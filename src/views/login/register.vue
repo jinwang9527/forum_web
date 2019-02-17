@@ -149,13 +149,13 @@
     width: 100%;
     background-color: $bg;
     .login-form {
-      position: absolute;
+      position: relative;
       left: 0;
       right: 0;
       width: 520px;
       max-width: 100%;
-      padding: 35px 35px 15px 35px;
-      margin: 120px auto;
+      padding: 35px 10px 15px 35px;
+      margin: 10px auto;
     }
     .tips {
       font-size: 14px;
