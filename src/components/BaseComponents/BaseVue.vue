@@ -62,6 +62,7 @@
           this.content=[]
           return this.page.total=0
         }
+
         if (response.paginator !== null ) this.page.total=response.paginator.totalCount
       },
 

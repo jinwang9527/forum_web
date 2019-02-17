@@ -19,7 +19,7 @@
 
       </el-form-item>
       <el-form-item>
-        <el-button  type="primary" style="width:100%;" @click= 'handleLogin'>
+        <el-button :loading="loading"  type="primary" style="width:100%;" @click= 'handleLogin'>
           登 陆
         </el-button>
       </el-form-item>

@@ -2,11 +2,9 @@
   <div>
     <div >
 
-
       <el-card shadow="always" style="width: 60%;float: right;margin-right: 10px;">
         最新战况： {{this.marqueeList[0].name}}{{this.marqueeList[0].city}}{{this.marqueeList[0].amount}}
       </el-card>
-
 
       <el-card shadow="always" style="width: 60%;float: right;margin-right: 10px;margin-top: 15px">
         <div class="inner-container">
@@ -15,8 +13,6 @@
           </p>
         </div>
       </el-card>
-
-
 
       <table-view :tabs="tableView.tabs"
                   :table="tableView.table"
@@ -27,10 +23,6 @@
       </table-view>
 
     </div>
-
-
-
-
   </div>
 
 
@@ -108,11 +100,13 @@
     },
     created(){
       setInterval(this.showMarquee, 2000)
-      this.selectPosts()
+      this.selectPosts('All',1,999)
     },
     methods:{
-      selectPosts(){
-        this.invokeApi(selectPosts,'All').then(response=>{
+      selectPosts(All ,pageIndex,pageSize){
+        this.invokeApi(selectPosts,{
+          All ,pageIndex,pageSize
+        }).then(response=>{
           this.arr=response.data
         })
       },

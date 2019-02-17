@@ -14,13 +14,15 @@ export function addPosts({postsTitle,postsContent}) {
 
 
 
-export function selectPosts({All,myPosts}) {
+export function selectPosts({All,myPosts,pageIndex,pageSize}) {
   return request({
     url:'myPosts/selectPosts',
     method:'post',
     data:{
       All,
-      myPosts
+      myPosts,
+      pageIndex,
+      pageSize
     }
   })
 }
