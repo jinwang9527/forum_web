@@ -31,6 +31,7 @@
                   :table="tableView.table"
                   :resources="tableView.resources"
                   :buttons="tableView.buttons"
+                  :operations="tableView.operations"
                   :searchCondition="tableView.searchCondition"
       >
       </table-view>
@@ -46,7 +47,7 @@
   import BForm from '../../../components/BaseComponents/element/BForm'
   import TableView from '../../../components/BaseComponents/view/TableView'
   import BaseVue from '../../../components/BaseComponents/BaseVue'
-  import {selectPosts} from '../../../api/myPosts/index'
+  import {selectPostsDetail} from '../../../api/myPosts/index'
   import BScroll from 'better-scroll'
 
   export default {
@@ -56,6 +57,7 @@
     data() {
       return {
         dialogVisible: false,
+        pkPostsId:'',
         form: {
           api: '',
           title: '帖子详情',
@@ -77,13 +79,16 @@
 
             border: false,
             content: [
-              {prop: 'postsTitle', label: '帖子标题'},
-              {prop: 'nickName', label: '创建人'},
+              {prop: 'nickName', label: '评论人'},
+              {prop: 'postsTitle', label: '评论内容'},
               {prop: 'createTime', label: '创建时间', type: 'time'},
             ],
           },
+          operations:[
+
+          ],
           resources: {
-            api: selectPosts,
+            api: null,
             refresh: 0,
             parameters: {}
           }
@@ -91,28 +96,22 @@
       }
     },
     created() {
-      setInterval(this.showMarquee, 2000)
-      this.selectPosts('All', 1, 999)
+     this.create()
     },
     methods: {
-      selectPosts(All, pageIndex, pageSize) {
-        this.invokeApi(selectPosts, {
-          All, pageIndex, pageSize
-        }).then(response => {
-          this.arr = response.data
+
+      create(){
+        this.pkPostsId=this.$route.query.pkPostsId
+        this.invokeApi(selectPostsDetail,{ pkPostsId : this.pkPostsId}).then(response =>{
+          this.form.model=response.data
         })
+
       },
-      goToAddPosts() {
-        this.dialogVisible = true
-      },
-      showMarquee: function () {
-        this.animate = true;
-        setTimeout(() => {
-          this.marqueeList.push(this.marqueeList[0]);
-          this.marqueeList.shift();
-          this.animate = false;
-        }, 500)
-      },
+
+      goToAddPosts(){
+        this.dialogVisible=true
+      }
+
     }
 
   }

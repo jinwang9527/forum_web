@@ -13,6 +13,16 @@ export function addPosts({postsTitle,postsContent}) {
 }
 
 
+export function selectPostsDetail({pkPostsId}) {
+  return request({
+    url:'myPosts/selectPostsDetail',
+    method:'post',
+    data:{
+      pkPostsId
+    }
+  })
+}
+
 
 export function selectPosts({All,myPosts,pageIndex,pageSize}) {
   return request({

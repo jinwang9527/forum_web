@@ -9,7 +9,7 @@
       <el-card shadow="always" style="width: 60%;float: right;margin-right: 10px;margin-top: 15px">
         <div class="inner-container">
           <p class="text" v-for="(item, index) in arr" :key="index" style="text-align: left;line-height: 50px;border-bottom: #001528 1px dashed ">
-            <router-link tag='a' :to="'/personalCenter/PostsDetail'" >{{item.postsTitle}}<span style="float: right;margin-right: 50px">{{item.nickName}}</span></router-link>
+            <router-link tag='a' :to="{path:'/personalCenter/PostsDetail' , query:{pkPostsId :item.pkPostsId }}" >{{item.postsTitle}}<span style="float: right;margin-right: 50px">{{item.nickName}}</span></router-link>
           </p>
         </div>
       </el-card>
