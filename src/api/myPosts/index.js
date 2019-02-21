@@ -36,3 +36,15 @@ export function selectPosts({All,myPosts,pageIndex,pageSize}) {
     }
   })
 }
+
+export function addPostsDetail({pkPostsId,content}) {
+  return request({
+    url:'myPosts/addPostsDetail',
+    method:'post',
+    data:{
+      pkPostsId,
+      content
+    }
+  })
+}
+

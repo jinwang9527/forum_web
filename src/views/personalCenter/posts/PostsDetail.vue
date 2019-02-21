@@ -20,7 +20,7 @@
 
         <span slot="footer" class="dialog-footer">
     <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+    <el-button type="primary" @click="comment();dialogVisible = false">确 定</el-button>
   </span>
 
       </el-dialog>
@@ -48,6 +48,7 @@
   import TableView from '../../../components/BaseComponents/view/TableView'
   import BaseVue from '../../../components/BaseComponents/BaseVue'
   import {selectPostsDetail} from '../../../api/myPosts/index'
+  import {addPostsDetail } from '../../../api/myPosts/index'
   import BScroll from 'better-scroll'
 
   export default {
@@ -110,6 +111,12 @@
 
       goToAddPosts(){
         this.dialogVisible=true
+      },
+      comment(){
+        this.pkPostsId=this.$route.query.pkPostsId
+        this.invokeApi(addPostsDetail,{ pkPostsId : this.pkPostsId,content:this.content}).then(response =>{
+          this.form.model=response.data
+        })
       }
 
     }
