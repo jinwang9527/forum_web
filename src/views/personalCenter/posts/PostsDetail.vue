@@ -12,7 +12,7 @@
 
         <el-form>
           <el-form-item>
-            <el-input v-model="form.name" type="textarea"></el-input>
+            <el-input v-model="postsContent" type="textarea"></el-input>
           </el-form-item>
 
         </el-form>
@@ -20,7 +20,7 @@
 
         <span slot="footer" class="dialog-footer">
     <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="comment();dialogVisible = false">确 定</el-button>
+    <el-button type="primary" @click="comment()">确 定</el-button>
   </span>
 
       </el-dialog>
@@ -48,8 +48,8 @@
   import TableView from '../../../components/BaseComponents/view/TableView'
   import BaseVue from '../../../components/BaseComponents/BaseVue'
   import {selectPostsDetail} from '../../../api/myPosts/index'
-  import {addPostsDetail } from '../../../api/myPosts/index'
-  import BScroll from 'better-scroll'
+  import {addPostsDetail,selectComment } from '../../../api/myPosts/index'
+  import { successMessageBox,errorMessageBox } from "../../../utils/message";
 
   export default {
     name: 'myPosts',
@@ -59,6 +59,7 @@
       return {
         dialogVisible: false,
         pkPostsId:'',
+        postsContent:'',
         form: {
           api: '',
           title: '帖子详情',
@@ -81,7 +82,7 @@
             border: false,
             content: [
               {prop: 'nickName', label: '评论人'},
-              {prop: 'postsTitle', label: '评论内容'},
+              {prop: 'content', label: '评论内容'},
               {prop: 'createTime', label: '创建时间', type: 'time'},
             ],
           },
@@ -89,7 +90,7 @@
 
           ],
           resources: {
-            api: null,
+            api: selectComment,
             refresh: 0,
             parameters: {}
           }
@@ -112,10 +113,17 @@
       goToAddPosts(){
         this.dialogVisible=true
       },
+      handleClose(){
+        this.dialogVisible=false
+      },
       comment(){
         this.pkPostsId=this.$route.query.pkPostsId
-        this.invokeApi(addPostsDetail,{ pkPostsId : this.pkPostsId,content:this.content}).then(response =>{
-          this.form.model=response.data
+        this.dialogVisible = false
+        this.invokeApi(addPostsDetail,{ pkPostsId : this.pkPostsId,content:this.postsContent}).then(response =>{
+          successMessageBox('评论成功')
+          this.tableView.resources.refresh++
+        }).catch(error=>{
+
         })
       }
 

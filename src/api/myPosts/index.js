@@ -37,9 +37,23 @@ export function selectPosts({All,myPosts,pageIndex,pageSize}) {
   })
 }
 
+
+export function selectComment({pkCommentId,pageIndex,pageSize}) {
+  return request({
+    url:'comment/selectComment',
+    method:'post',
+    data:{
+      pkCommentId,
+      pageIndex,
+      pageSize
+    }
+  })
+}
+
+
 export function addPostsDetail({pkPostsId,content}) {
   return request({
-    url:'myPosts/addPostsDetail',
+    url:'comment/addComment',
     method:'post',
     data:{
       pkPostsId,
