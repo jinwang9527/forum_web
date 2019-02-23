@@ -92,7 +92,9 @@
           resources: {
             api: selectComment,
             refresh: 0,
-            parameters: {}
+            parameters: {
+              pkPostsId:this.$route.query.pkPostsId
+            }
           }
         }
       }

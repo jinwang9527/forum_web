@@ -38,12 +38,12 @@ export function selectPosts({All,myPosts,pageIndex,pageSize}) {
 }
 
 
-export function selectComment({pkCommentId,pageIndex,pageSize}) {
+export function selectComment({pkPostsId,pageIndex,pageSize}) {
   return request({
     url:'comment/selectComment',
     method:'post',
     data:{
-      pkCommentId,
+      pkPostsId,
       pageIndex,
       pageSize
     }
